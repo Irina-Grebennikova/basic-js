@@ -13,9 +13,58 @@ const { NotImplementedError } = require('../extensions/index.js');
  * transform([1, 2, 3, '--discard-prev', 4, 5]) => [1, 2, 4, 5]
  * 
  */
-function transform(/* arr */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
+// function transform(arr) {
+//   if (!(arr instanceof Array)) {
+//     throw new Error("'arr' parameter must be an instance of the Array!");
+//   }
+//   let res = [];
+//   arr.forEach (el => res.push(el));
+//   res.forEach((el, i) => {
+//       switch (el) {
+//         case '--double-next':
+//           res[i] = res[i + 1];
+//           break;
+//         case '--double-prev':
+//           res[i] = res[i - 1];
+//           break;
+//         case '--discard-next':
+//           res[i] = '';
+//           res[i + 1] = '';
+//           break;
+//         case '--discard-prev':
+//           res[i] = '';
+//           res[i - 1] = '';
+//           break;
+//       }
+//   })
+//   return res.filter(el => el !== '');
+// }
+function transform(arr) {
+  if (!(arr instanceof Array)) {
+    throw new Error("'arr' parameter must be an instance of the Array!");
+  }
+  let res = [];
+  arr.forEach(el => res.push(el));
+  
+  res.forEach((el, i) => {
+      switch (el) {
+        case '--double-next':
+          res[i] = res[i+1] ? res[i + 1] : '';
+          break;
+        case '--double-prev':
+          res[i] = res[i-1] ? res[i - 1] : '';
+          break;
+        case '--discard-next':
+          res[i] = '';
+          res[i + 1] = '';
+          break;
+        case '--discard-prev': 
+          res[i] = '';
+          res[i - 1] = '';
+          break;
+      }
+  })
+  return res.filter(el => el !== '');
 }
 
 module.exports = {
